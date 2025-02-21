@@ -7,7 +7,7 @@
 **Text Fluoroscopy**: we propose Text Fluoroscopy, a black-box method for LLM-generated text detection through intrinsic features. Our method captures the text’s intrinsic features by identifying the layer with the largest distribution difference from the last and first layers when projected to the vocabulary space.
 <!-- ![Text Fluoroscopy Architecture](./assets/framework.png) -->
 <div style="text-align: center;">
-  <img src="./assets/framework.png" alt="Text Fluoroscopy Architecture" style="width: 80%;"/>
+  <img src="./assets/framework.png" alt="Text Fluoroscopy Architecture" style="width: 64%;"/>
 </div>
 
 
@@ -73,7 +73,7 @@ As shown above:
 - The 30th layer approach maintains the core benefits of our method while being nearly as fast as last-layer-only methods
 
 <div style="text-align: center;">
-  <img src="./assets/results.png" alt="Results" style="width: 74%;"/>
+  <img src="./assets/results.png" alt="Results" style="width: 44%;"/>
 </div>
 
 ## 🔄 Applicability Across LLMs
