@@ -1,4 +1,4 @@
-# 🔍 Text Fluoroscopy
+# 🔍 Text Fluoroscopy: Detecting LLM-Generated Text through Intrinsic Features (EMNLP 2024 Main Track)
 
 [![Paper](https://img.shields.io/badge/Paper-EMNLP2024-blue)](https://aclanthology.org/2024.emnlp-main.885.pdf)
 [![GitHub Stars](https://img.shields.io/github/stars/Fish-and-Sheep/Text-Fluoroscopy?style=social)](https://github.com/Fish-and-Sheep/Text-Fluoroscopy)
