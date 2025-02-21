@@ -5,12 +5,7 @@
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-green.svg)](https://www.python.org/downloads/)
 
 **Text Fluoroscopy**: we propose Text Fluoroscopy, a black-box method for LLM-generated text detection through intrinsic features. Our method captures the text’s intrinsic features by identifying the layer with the largest distribution difference from the last and first layers when projected to the vocabulary space.
-<!-- ![Text Fluoroscopy Architecture](./assets/framework.png) -->
-
-<div style="display: flex; justify-content: space-between;">
-  <img src="./assets/framework.png" alt="Image 1" style="width: 64%;"/>
-  <img src="./assets/results.png" alt="Image 2" style="width: 36%;"/>
-</div>
+![Text Fluoroscopy Architecture](./assets/framework.png)
 
 
 ## 📋 Overview
@@ -73,6 +68,9 @@ As shown above:
 - We identified that using the fixed 30th layer offers an excellent balance between accuracy and speed
 - This optimization reduces processing time by ~6.5× with less than 0.7% accuracy reduction
 - The 30th layer approach maintains the core benefits of our method while being nearly as fast as last-layer-only methods
+
+![Text Fluoroscopy Architecture](./assets/results.png)
+
 
 
 ## 📚 Citation
