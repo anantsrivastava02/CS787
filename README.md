@@ -57,7 +57,7 @@ python gte-qwen/save_embedding.py
 python embedding_classify/classify_with_max_KL_layer.py
 ```
 
-## ⚡ Performance Optimization
+## ⚡ Optimization Strategies
 
 Although our dynamic layer-selection method is effective, the computational overhead of examining each layer introduces time delays. To address this limitation, we provide an alternative approach:
 
