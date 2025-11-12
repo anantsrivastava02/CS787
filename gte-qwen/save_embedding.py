@@ -1,3 +1,6 @@
+import os
+os.environ['TORCH_COMPILE_DISABLE'] = '1'
+
 from transformers import AutoTokenizer, AutoModel
 import torch
 import argparse
@@ -5,6 +8,14 @@ import torch.nn.functional as F
 import os
 import json
 from tqdm import tqdm
+
+# Fix for DynamicCache compatibility issue
+try:
+    from transformers.cache_utils import DynamicCache
+    if not hasattr(DynamicCache, 'get_usable_length'):
+        DynamicCache.get_usable_length = lambda self, seq_length: self.get_seq_length()
+except ImportError:
+    pass
 
 def last_token_pool(last_hidden_states,
                  attention_mask):
@@ -18,20 +29,24 @@ def last_token_pool(last_hidden_states,
 
 max_length = 512
 
-pretrained_model_name_or_path = '../huggingface_model/gte-Qwen1.5-7B-instruct'
-which_embedding='gte-qwen_all_embedding'
+pretrained_model_name_or_path = 'Alibaba-NLP/gte-Qwen2-1.5B-instruct'
+which_embedding='gte_qwen2_1.5B_all_embedding'
+
 
 tokenizer = AutoTokenizer.from_pretrained(pretrained_model_name_or_path, trust_remote_code=True)
 tokenizer.pad_token = tokenizer.eos_token
 
-model = AutoModel.from_pretrained(pretrained_model_name_or_path, trust_remote_code=True,device_map='auto')
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+model = AutoModel.from_pretrained(pretrained_model_name_or_path, trust_remote_code=True).to(device)
 save_dir = f'save/{which_embedding}/save_embedding/'
 
 def get_all_embedding(model,input_texts):
     batch_dict = tokenizer(input_texts, max_length=max_length, padding=True, truncation=True, return_tensors='pt')
+    batch_dict = {k: v.to(device) for k, v in batch_dict.items()}
+    attention_mask_cpu = batch_dict['attention_mask'].cpu()
     with torch.no_grad():
-        outputs = model(**batch_dict,output_hidden_states=True)
-    all_embed = [last_token_pool(outputs.hidden_states[i].cpu(), batch_dict['attention_mask']) for i in range(len(outputs.hidden_states))]
+        outputs = model(**batch_dict, output_hidden_states=True, use_cache=False)
+    all_embed = [last_token_pool(outputs.hidden_states[i].cpu(), attention_mask_cpu) for i in range(len(outputs.hidden_states))]
     all_embed = torch.concat(all_embed,1).cpu()
     return all_embed
 

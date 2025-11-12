@@ -8,7 +8,7 @@ import numpy as np
 from sklearn.metrics import roc_auc_score
 
 torch.manual_seed(42)
-which_embedding='gte-qwen_all';embedding_dim=4096;kl_path='gte-qwen_KL_with_first_and_last_layer';learning_rate=0.003;droprate=0.4
+which_embedding='gte_qwen2_1.5B_all';embedding_dim=1536;kl_path='gte_qwen2_1.5B_KL_with_first_and_last_layer';learning_rate=0.003;droprate=0.4
 
 which_layer = 'max_kl'
 
